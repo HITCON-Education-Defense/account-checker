@@ -96,7 +96,7 @@ var sha256 = function sha256(ascii) {
 };
 
 const mapping = {
-    "c4aaee9a259bd1186be8b1d109a07a3962286bd9aab707c9a35374034c47939b":"這個是 AD 主機用的管理帳號，可以修改帳號密碼",
+    "c4aaee9a259bd1186be8b1d109a07a3962286bd9aab707c9a35374034c47939b": "這個是 AD 主機用的管理帳號，可以修改帳號密碼",
     "e79a5be6196298ffbdf0acfc0a88478245b6d71b73866978bbc04369b7384210": "員工帳號，修改名稱及密碼需通知IT部門",
     "d06ca96a793fb3a4d475ec0a2f83ef50f3694d5ba77bd1d8b5dae46bf1c5b76b": "員工帳號，修改名稱及密碼需通知IT部門",
     "04eb34ea4c3cf8b724e9f1d15a220c55429e60716e796b5862f26e74e568a310": "員工帳號，修改名稱及密碼需通知IT部門",
@@ -131,8 +131,11 @@ const mapping = {
 }
 
 document.getElementById('btn').onclick = () => {
-    hash = sha256(document.getElementById('username').value + document.getElementById('org').value + "looooongsalt");
-    msg.querySelector('.message-body').textContent = mapping[hash];
+    const hash = sha256(document.getElementById('username').value + document.getElementById('org').value + "looooongsalt");
+    if (hash in mapping)
+        msg.querySelector('.message-body').textContent = mapping[hash];
+    else
+        msg.querySelector('.message-body').textContent = "蛤，這誰我完全沒聽過";
 };
 
 
